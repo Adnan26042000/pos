@@ -11,17 +11,29 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        @livewireStyles
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+        @livewireScripts
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="//unpkg.com/alpinejs" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
+    <body class="font-sans antialiased h-full">
+    <div x-data="{sidebar: false}" x-cloak>
+        {{--   I'm using sidebar variable in header and sidebar both files--}}
+        @include('includes.sidebar')
+        <div class="lg:pl-72">
+            {{--        @include('includes.header')--}}
+            <main class="py-10">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    @yield('content')
+                </div>
             </main>
         </div>
+    </div>
     </body>
 </html>
