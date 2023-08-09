@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="//unpkg.com/alpinejs" defer></script>
     </head>
-    <body class="font-sans antialiased h-full">
+    <body class="font-sans antialiased h-full bg-gray-100">
     <div x-data="{sidebar: false}" x-cloak>
         {{--   I'm using sidebar variable in header and sidebar both files--}}
         @include('includes.sidebar')
