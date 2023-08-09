@@ -27,7 +27,7 @@
         {{--   I'm using sidebar variable in header and sidebar both files--}}
         @include('includes.sidebar')
         <div class="lg:pl-72">
-            {{--        @include('includes.header')--}}
+                    @include('includes.header')
             <main class="py-10">
                 <div class="px-4 sm:px-6 lg:px-8">
                     @yield('content')
