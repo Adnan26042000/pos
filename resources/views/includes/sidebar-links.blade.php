@@ -88,6 +88,28 @@
                                ">
                                 Manufacturers
                             </a>
+
+                            <a href=""
+                               class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                                Categories
+                            </a>
+
+                            <a href=""
+                               class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                                Rack
+                            </a>
+
+                            <a href=""
+                               class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                                Sizes
+                            </a>
+
+
+                            <a href=""
+                               class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                                Products
+                            </a>
+
                         </div>
                     </div>
                 </li>
