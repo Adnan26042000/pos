@@ -1,8 +1,9 @@
 <div>
 
     <div class="px-4 sm:px-6 lg:px-8">
-        <div class="flow-root overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-            <div class="h-16 bg-white flex items-center px-6 font-medium text-md">
+        <div class="flow-root overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white">
+            @include('includes.error-template')
+            <div class="h-16  flex items-center px-6 font-medium text-md">
                 Add Manufacturer
             </div>
             <div class="-mx-4 -my-2 overflow-x-auto -mx-6 lg:-mx-8 bg-white">
@@ -47,21 +48,25 @@
                                 </div>
 
                                 <div class="mx-2 my-2 col-span-4">
-                                    <label for="address" wire:model.defer="manufacturer.address"
+                                    <label for="address"
                                            class="block text-sm font-medium leading-6 text-gray-900">Address</label>
                                     <div class="mt-1">
                                     <textarea rows="3" id="address" autocomplete="off"
+                                              wire:model.defer="manufacturer.address"
                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                         <div class="h-14 bg-gray-50 flex items-center justify-end border-t px-6 mt-2">
                             <button type="submit"
-                                    class=" rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    class="mr-2 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                 Add
+                            </button>
+
+                            <button type="button" wire:click.prevent="clear"
+                                    class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                                Reset
                             </button>
                         </div>
                     </div>
@@ -86,12 +91,12 @@
                                     class="py-3.5  pr-3 text-left text-sm font-semibold text-gray-900 pl-6">Name
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Title
+                                    Contact #
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Email
+                                    Address
                                 </th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status
                                 </th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-6">
                                     <span class="sr-only">Edit</span>
@@ -99,24 +104,51 @@
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                            <tr>
-                                <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900 pl-6">
-                                    Lindsay Walton
-                                </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    lindsay.walton@example.com
-                                </td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                                <td class="relative whitespace-nowrap py-4 pl-3  text-right text-sm font-medium pr-6">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
-                                </td>
-                            </tr>
+                            @if($fetch_manufacturers->isNotEmpty())
+                                @foreach($fetch_manufacturers as $m)
+                                    <tr>
+                                        <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900 pl-6">
+                                            {{$m->name}}
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$m->contact_no ?? '-'}}
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            {{$m->address ?? '-'}}
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            @if($m->status == 't')
+                                                <span
+                                                    class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Active</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex items-center rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">Inactive</span>
+                                            @endif
+                                        </td>
 
+
+                                        <td class="relative whitespace-nowrap py-4 pl-3  text-right text-sm font-medium pr-6">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
+                                                    class="sr-only">, Lindsay Walton</span></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             <!-- More people... -->
                             </tbody>
                         </table>
                     </div>
+                    @if($fetch_manufacturers->isNotEmpty())
+                        <div class="h-14 bg-gray-50  border-t px-6 mt-2 py-2">
+                            @if($fetch_manufacturers->lastPage() >  1)
+                                {{$fetch_manufacturers->links()}}
+                            @else
+                                <div class="h-full flex items-center">
+                                    <p class="text-sm font-light">Showing <span class="font-medium">1</span> to <span class="font-medium">1</span> of <span class="font-medium">1</span>
+                                        results</p>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
