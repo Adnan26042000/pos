@@ -25,12 +25,13 @@
             </div>
         </div>
     @endif
+
     {{--pop up--}}
     <div aria-live="assertive"
-         class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50"
-         x-data="{popup: false}" x-on:error.window="setTimeout(()=>popup = false,5000); popup = true;" x-show="popup">
+         x-data="{errorPopup: false}"
+         class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50">
         <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
-            <div
+            <div x-on:error.window="errorPopup = true; setTimeout(()=>errorPopup = false,5000); errorPopup = true;" x-show="errorPopup"
                 class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 bg-red-100"
                 x-transition:enter="transform ease-out duration-300 transition"
                 x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -61,7 +62,7 @@
                         </div>
                         <div class="ml-4 flex flex-shrink-0">
                             <button type="button"
-                                    @click="popup=false"
+                                    @click="errorPopup=false"
                                     class="inline-flex rounded-md  text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 <span class="sr-only">Close</span>
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -80,10 +81,12 @@
     {{--success message--}}
     <div aria-live="assertive"
          class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50"
-         x-data="{popup: false}" x-on:success.window="setTimeout(()=>popup = false,5000); popup = true;" x-show="popup">
+         x-data="{successPopup: false}">
         <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+
             <div
                 class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 bg-green-100"
+                x-on:success.window="successPopup = true; setTimeout(()=>successPopup = false,5000);" x-show="successPopup"
                 x-transition:enter="transform ease-out duration-300 transition"
                 x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
                 x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
@@ -107,7 +110,7 @@
                     </div>
                     <div class="ml-4 flex flex-shrink-0">
                         <button type="button"
-                                @click="popup=false"
+                                @click="successPopup=false"
                                 class="inline-flex rounded-md  text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-0.5">
                             <span class="sr-only">Close</span>
                             <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
