@@ -28,15 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-
-
-    Route::name('master-data')->prefix('master-data')->group(function () {
+    Route::name('master-data.')->prefix('master-data')->group(function () {
         Route::get('/manufacturer', function () {
             return view('master-data.manufacturer.add-manufacturer');
-        });
+        })->name('manufacturer');
     });
-
-
 
 
 });
