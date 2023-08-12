@@ -29,7 +29,27 @@ class AddManufacturer extends Component
     public $success;
     public $is_edit = false;
 
-    public function save()
+    public function mount()
+    {
+        $this->manufacturer['status'] = 't';
+    }
+
+    public function edit($id)
+    {
+        try {
+
+            $this->manufacturer = optional(Manufacturer::select('id', 'name', 'contact_no', 'address', 'status')->find($id))->toArray();
+            if (!empty($manufacturer)) {
+                throw new \Exception('No record found.');
+            }
+            $this->is_edit = true;
+        } catch (\Exception $ex) {
+            $this->dispatchBrowserEvent('error');
+            $this->addError('error', $ex->getMessage());
+        }
+    }
+
+    public function save(): void
     {
         $this->withValidator(function (\Illuminate\Validation\Validator $validator) {
             if ($validator->fails()) {
@@ -62,8 +82,7 @@ class AddManufacturer extends Component
         }
     }
 
-
-    public function clear()
+    public function clear(): void
     {
         $this->resetErrorBag();
         $this->reset('manufacturer', 'is_edit');

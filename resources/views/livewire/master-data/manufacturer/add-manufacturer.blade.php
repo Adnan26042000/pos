@@ -110,10 +110,19 @@
                                         <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900 pl-6">
                                             {{$m->name}}
                                         </td>
-                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$m->contact_no ?? '-'}}
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            @if(!empty($m->contact_no))
+                                                {{$m->contact_no}}
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            {{$m->address ?? '-'}}
+                                            @if(!empty($m->address))
+                                                {{$m->address}}
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             @if($m->status == 't')
@@ -127,13 +136,11 @@
 
 
                                         <td class="relative whitespace-nowrap py-4 pl-3  text-right text-sm font-medium pr-6">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                                    class="sr-only">, Lindsay Walton</span></a>
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900" wire:click.prevent="edit({{$m->id}})">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
                             @endif
-                            <!-- More people... -->
                             </tbody>
                         </table>
                     </div>
@@ -143,7 +150,8 @@
                                 {{$fetch_manufacturers->links()}}
                             @else
                                 <div class="h-full flex items-center">
-                                    <p class="text-sm font-light">Showing <span class="font-medium">1</span> to <span class="font-medium">1</span> of <span class="font-medium">1</span>
+                                    <p class="text-sm font-light">Showing <span class="font-medium">1</span> to <span
+                                            class="font-medium">1</span> of <span class="font-medium">1</span>
                                         results</p>
                                 </div>
                             @endif
