@@ -37,7 +37,6 @@ class AddManufacturer extends Component
     public function edit($id)
     {
         try {
-
             $this->manufacturer = optional(Manufacturer::select('id', 'name', 'contact_no', 'address', 'status')->find($id))->toArray();
             if (!empty($manufacturer)) {
                 throw new \Exception('No record found.');
