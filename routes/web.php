@@ -37,6 +37,11 @@ Route::middleware('auth')->group(function () {
             return view('master-data.categories.add-categories');
         })->name('category');
 
+        Route::get('/rack', function () {
+            return view('master-data.rack.add-rack');
+        })->name('rack');
+
+
     });
 
 
