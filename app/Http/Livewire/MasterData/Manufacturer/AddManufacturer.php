@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MasterData\Manufacturer;
 
+use App\Models\Category;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -59,19 +60,28 @@ class AddManufacturer extends Component
         try {
             DB::beginTransaction();
             if (!$this->is_edit) {
+                $dup_manufacturer = Manufacturer::where('name', $this->manufacturer['name'])->exists();
+                if ($dup_manufacturer) {
+                    throw new \Exception('Manufacturer already exists.');
+                }
                 Manufacturer::create($this->manufacturer);
                 $this->success = 'Manufacture added successfully.';
-                $this->dispatchBrowserEvent('success');
             } else {
                 $manufacturer_exists = Manufacturer::where('id', $this->manufacturer['id'])->exists();
                 if (!$manufacturer_exists) {
                     throw new \Exception('No record found.');
                 }
+
+                $dup_manufacturer = Manufacturer::where('id', '!=', $this->manufacturer['id'])->where('name', $this->manufacturer['name'])->exists();
+                if ($dup_manufacturer) {
+                    throw new \Exception('Manufacturer already exists.');
+                }
+
                 Manufacturer::where('id', $this->manufacturer['id'])->update($this->manufacturer);
                 $this->success = 'Manufacture updated successfully.';
-                $this->dispatchBrowserEvent('success');
-                $this->clear();
             }
+            $this->dispatchBrowserEvent('success');
+            $this->clear();
 
             DB::commit();
         } catch (\Exception $ex) {

@@ -32,6 +32,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/manufacturer', function () {
             return view('master-data.manufacturer.add-manufacturer');
         })->name('manufacturer');
+
+        Route::get('/category', function () {
+            return view('master-data.categories.add-categories');
+        })->name('category');
+
     });
 
 
