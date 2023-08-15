@@ -4,7 +4,7 @@
         <div class="flow-root overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white">
             @include('includes.error-template')
             <div class="h-16  flex items-center px-6 font-medium text-md">
-                Add Category
+                {{$is_edit?'Update':'Add'}}  Category
             </div>
             <div class="-mx-4 -my-2 overflow-x-auto -mx-6 lg:-mx-8 bg-white">
                 <form wire:submit.prevent="save">
@@ -42,7 +42,7 @@
                         <div class="h-14 bg-gray-50 flex items-center justify-end border-t px-6 mt-2">
                             <button type="submit"
                                     class="mr-2 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Add
+                                {{$is_edit?'Update':'Add'}}
                             </button>
 
                             <button type="button" wire:click.prevent="clear"
