@@ -31,7 +31,7 @@ class AddCustomer extends Component
         $this->customer['status'] = 't';
 
         if (!empty($customer_id)) {
-            $this->customer = optional(customer::select('id', 'name', 'phone', 'status', 'address')->find($customer_id))->toArray();
+            $this->customer = optional(Customer::select('id', 'name', 'phone', 'status', 'address')->find($customer_id))->toArray();
             if (empty($this->customer)) {
                 session()->flash('error', 'No record found.');
                 return $this->redirectTo = '/customer/customers-list';
