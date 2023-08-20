@@ -40,19 +40,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/rack', function () {
             return view('master-data.rack.add-rack');
         })->name('rack');
-    });
 
-
-    Route::name('supplier.')->prefix('supplier')->group(function () {
-        Route::get('/add-supplier/{supplier_id?}', function () {
-            return view('supplier.add-supplier');
-        })->name('add-supplier');
-
-        Route::get('/suppliers-list', function () {
-            return view('supplier.suppliers-list');
-        })->name('suppliers-list');
-     
-              Route::get('/sizes', function () {
+        Route::get('/sizes', function () {
             return view('master-data.sizes.add-sizes');
         })->name('sizes');
 
@@ -66,6 +55,17 @@ Route::middleware('auth')->group(function () {
             return view('master-data.products.edit-products');
         })->name('edit-products');
 
+    });
+
+
+    Route::name('supplier.')->prefix('supplier')->group(function () {
+        Route::get('/add-supplier/{supplier_id?}', function () {
+            return view('supplier.add-supplier');
+        })->name('add-supplier');
+
+        Route::get('/suppliers-list', function () {
+            return view('supplier.suppliers-list');
+        })->name('suppliers-list');
     });
 
     Route::name('customer.')->prefix('customer')->group(function () {
