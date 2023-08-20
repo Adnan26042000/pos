@@ -42,6 +42,21 @@ Route::middleware('auth')->group(function () {
         })->name('rack');
 
 
+        Route::get('/sizes', function () {
+            return view('master-data.sizes.add-sizes');
+        })->name('sizes');
+
+        Route::get('/products', function () {
+            return view('master-data.products.product-lists');
+        })->name('products');
+        Route::get('/add-products', function () {
+            return view('master-data.products.add-products');
+        })->name('add-products');
+        Route::get('/edit-products/{id}', function () {
+            return view('master-data.products.edit-products');
+        })->name('edit-products');
+
+
     });
 
 
