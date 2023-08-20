@@ -18,7 +18,8 @@
                     </a>
                 </li>
                 <li>
-                    <div @if(request()->segment(1) == 'customer')  x-data="{dropdown : true}"
+                    <div
+                        @if(request()->segment(1) == 'sale')  x-data="{dropdown : true}"
                          @else  x-data="{dropdown : false}" @endif class="rounded-md"
                          x-bind:class="{ 'bg-gray-800': dropdown, 'bg-gray-900': !dropdown }">
                         <div @click="dropdown = !dropdown"
@@ -50,14 +51,12 @@
                         >
                             <a href=""
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
-                               @if(request()->segment(1) == 'customer' && request()->segment(2) == 'add-customer') {{$active}} @endif
                                ">
                                 Add Sale
                             </a>
 
                             <a href=""
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
-                               @if(request()->segment(1) == 'customer' && request()->segment(2) == 'customers-list') {{$active}} @endif
                                ">
                                 Sales List
                             </a>
@@ -68,7 +67,8 @@
 
 
                 <li>
-                    <div @if(request()->segment(1) == 'customer')  x-data="{dropdown : true}"
+                    <div
+                        @if(request()->segment(1) == 'purchase')  x-data="{dropdown : true}"
                          @else  x-data="{dropdown : false}" @endif class="rounded-md"
                          x-bind:class="{ 'bg-gray-800': dropdown, 'bg-gray-900': !dropdown }">
                         <div @click="dropdown = !dropdown"
@@ -100,14 +100,12 @@
                         >
                             <a href=""
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
-                               @if(request()->segment(1) == 'customer' && request()->segment(2) == 'add-customer') {{$active}} @endif
                                ">
                                 Create Purchase Order
                             </a>
 
                             <a href=""
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
-                               @if(request()->segment(1) == 'customer' && request()->segment(2) == 'customers-list') {{$active}} @endif
                                ">
                                 Purchase Orders List
                             </a>
@@ -147,14 +145,14 @@
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95"
                         >
-                            <a href=""
+                            <a href="{{route('customer.add-customer')}}"
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
                                @if(request()->segment(1) == 'customer' && request()->segment(2) == 'add-customer') {{$active}} @endif
                                ">
                                 Add Customer
                             </a>
 
-                            <a href=""
+                            <a href="{{route('customer.customers-list')}}"
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
                                @if(request()->segment(1) == 'customer' && request()->segment(2) == 'customers-list') {{$active}} @endif
                                ">

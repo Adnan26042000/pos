@@ -10,8 +10,6 @@ use Livewire\WithPagination;
 
 class AddSupplier extends Component
 {
-    use WithPagination;
-
     protected $rules = [
         'supplier.name' => 'required|string|max:50',
         'supplier.phone' => 'required|string|max:15',

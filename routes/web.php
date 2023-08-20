@@ -52,8 +52,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/suppliers-list', function () {
             return view('supplier.suppliers-list');
         })->name('suppliers-list');
+    });
+
+    Route::name('customer.')->prefix('customer')->group(function () {
+        Route::get('/add-customer/{customer_id?}', function () {
+            return view('customer.add-customer');
+        })->name('add-customer');
 
 
+        Route::get('/customers-list', function () {
+            return view('customer.customers-list');
+        })->name('customers-list');
     });
 
 });
