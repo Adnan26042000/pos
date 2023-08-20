@@ -26,7 +26,7 @@
     <div x-data="{sidebar: false}" x-cloak>
         {{--   I'm using sidebar variable in header and sidebar both files--}}
         @include('includes.sidebar')
-        <div class="lg:pl-72">
+        <div class="lg:pl-60">
                     @include('includes.header')
             <main class="py-10">
                 <div class="px-4 sm:px-6 lg:px-8">

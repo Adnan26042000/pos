@@ -48,10 +48,24 @@ Route::middleware('auth')->group(function () {
             return view('supplier.add-supplier');
         })->name('add-supplier');
 
-
         Route::get('/suppliers-list', function () {
             return view('supplier.suppliers-list');
         })->name('suppliers-list');
+     
+              Route::get('/sizes', function () {
+            return view('master-data.sizes.add-sizes');
+        })->name('sizes');
+
+        Route::get('/products', function () {
+            return view('master-data.products.product-lists');
+        })->name('products');
+        Route::get('/add-products', function () {
+            return view('master-data.products.add-products');
+        })->name('add-products');
+        Route::get('/edit-products/{id}', function () {
+            return view('master-data.products.edit-products');
+        })->name('edit-products');
+
     });
 
     Route::name('customer.')->prefix('customer')->group(function () {

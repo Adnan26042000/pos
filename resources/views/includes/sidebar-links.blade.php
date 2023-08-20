@@ -279,14 +279,16 @@
                                 Racks
                             </a>
 
-                            <a href=""
-                               class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                            <a href="{{route('master-data.sizes')}}"
+                               class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
+                                @if(request()->segment(1) == 'master-data' && request()->segment(2) == 'sizes') {{$active}} @endif">
                                 Sizes
                             </a>
 
 
-                            <a href=""
-                               class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11">
+                            <a href="{{route('master-data.products')}}"
+                               class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
+                           @if(request()->segment(1) == 'master-data' && request()->segment(2) == 'products') {{$active}} @endif">
                                 Products
                             </a>
 
