@@ -9,9 +9,9 @@
                 <form wire:submit.prevent="save">
                     <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
                         <div class="border-t">
-                            <div class="grid grid-cols-6 mx-4">
+                            <div class="grid grid-cols-4 mx-4">
 
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="name"
                                            class="block text-sm font-medium leading-6 text-gray-900">Name <span
                                             class="text-red-700">*</span></label>
@@ -22,7 +22,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Size</label>
                                     <div class="mt-1">
@@ -30,13 +30,13 @@
                                                 class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             <option value=""></option>
                                             @foreach($sizes as $s)
-                                            <option value="{{$s['id']}}">{{$c['name']}}</option>
+                                                <option value="{{$s['id']}}">{{$s['name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="tier"
                                            class="block text-sm font-medium leading-6 text-gray-900">Pieces in Packing
                                         <span
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Category</label>
                                     <div class="mt-1">
@@ -56,11 +56,13 @@
                                                 class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             <option value=""></option>
                                             @foreach($categories as $c)
-                                                <option value="{{$c['id']}}">{{$s['name']}}</option>
-                                            @endforeach                                        </select>
+                                                <option value="{{$c['id']}}">{{$c['name']}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Manufacture</label>
                                     <div class="mt-1">
@@ -73,7 +75,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Supplier
                                     </label>
@@ -85,7 +88,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Rack</label>
                                     <div class="mt-1">
@@ -98,9 +102,11 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
-                                           class="block text-sm font-medium leading-6 text-gray-900">Is Discountable? <span
+                                           class="block text-sm font-medium leading-6 text-gray-900">Is Discountable?
+                                        <span
                                             class="text-red-700">*</span></label>
                                     <div class="mt-1">
                                         <select wire:model.defer="product.discountable"
@@ -110,7 +116,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-2">
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="contact_no"
                                            class="block text-sm font-medium leading-6 text-gray-900">Status <span
                                             class="text-red-700">*</span></label>
