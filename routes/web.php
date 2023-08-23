@@ -79,6 +79,12 @@ Route::middleware('auth')->group(function () {
         })->name('customers-list');
     });
 
+    Route::name('purchase.')->prefix('customer')->group(function () {
+        Route::get('/create-purchase-order', function () {
+            return view('purchase.purchase-order');
+        })->name('create-purchase-order');
+    });
+
 });
 
 require __DIR__ . '/auth.php';
