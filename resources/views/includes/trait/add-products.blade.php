@@ -71,7 +71,7 @@
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                 @if(!empty($fetch_products))
                                     @foreach($fetch_products as $p)
-                                        <tr class="hover:bg-indigo-600 hover:text-white text-gray-900 product"
+                                        <tr class="hover:bg-gray-100 hover:text-gray-900 text-gray-900 product"
                                             wire:key="{{$p['id']}}" id="{{$p['id']}}">
                                             <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium pl-6">
                                                 {{$p['name']}}
@@ -141,9 +141,9 @@
             }
 
             products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white')
+                product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
             })
-            products[selected_product].classList.add('bg-indigo-600', 'text-white');
+            products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
             products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
         }
     })
@@ -152,10 +152,10 @@
     products.forEach((product, index) => {
         product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
             products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white')
+                product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
             })
             selected_product = index;
-            products[selected_product].classList.add('bg-indigo-600', 'text-white');
+            products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
         })
 
         product.addEventListener("keydown", (e) => {
@@ -173,9 +173,9 @@
                 }
 
                 products.forEach((product) => {
-                    product.classList.remove('bg-indigo-600', 'text-white')
+                    product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
                 })
-                products[selected_product].classList.add('bg-indigo-600', 'text-white');
+                products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
                 products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
             }
         })
