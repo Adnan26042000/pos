@@ -105,13 +105,8 @@
 
                         <div class="border-t flex flex-wrap items-center bg-gray-50 px-4 py-2.5 text-xs text-gray-700">
                             Type <kbd
-                                class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">#</kbd>
-                            <span class="sm:hidden">for projects,</span><span class="hidden sm:inline">to access projects,</span>
-                            <kbd
-                                class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">&gt;</kbd>
-                            for users, and <kbd
-                                class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">?</kbd>
-                            for help.
+                                class="mx-1 flex h-5 w-5 items-center justify-center rounded border border-gray-400 bg-white font-semibold text-gray-900 sm:mx-2">F2</kbd>
+                            <span class="sm:hidden">for projects,</span><span class="hidden sm:inline">to select search box</span>
                         </div>
                     </div>
 
@@ -141,9 +136,9 @@
             }
 
             products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
+                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
             })
-            products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
+            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
             products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
         }
     })
@@ -152,10 +147,10 @@
     products.forEach((product, index) => {
         product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
             products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
+                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
             })
             selected_product = index;
-            products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
+            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
         })
 
         product.addEventListener("keydown", (e) => {
@@ -173,12 +168,19 @@
                 }
 
                 products.forEach((product) => {
-                    product.classList.remove('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white')
+                    product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
                 })
-                products[selected_product].classList.add('bg-indigo-600', 'text-white','hover:bg-indigo-600','hover:text-white');
+                products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
                 products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
             }
         })
     })
+
+    window.addEventListener('keyup', e => {
+        if(e.key == 'F2'){
+            search.focus();
+        }
+    })
+
 </script>
 </div>
