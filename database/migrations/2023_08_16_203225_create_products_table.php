@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedInteger('manufacture_id')->nullable();
             $table->unsignedInteger('supplier_id')->nullable();
             $table->unsignedInteger('rack_id')->nullable();
-            $table->decimal('supply_price',8,2)->nullable();
-            $table->decimal('retail_price',8,2)->nullable();
+            $table->decimal('supply_price',10,2)->nullable();
+            $table->decimal('retail_price',10,2)->nullable();
             $table->enum('discountable',['t','f'])->default('f');
             $table->enum('status',['t','f'])->default('t');
             $table->timestamps();

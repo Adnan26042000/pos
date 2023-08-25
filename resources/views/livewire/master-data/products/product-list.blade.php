@@ -4,7 +4,7 @@
         <div class="flow-root overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg bg-white">
             @include('includes.error-template')
             <div class="h-16  flex items-center px-6 font-medium text-md">
-              Search Filters
+                Search Filters
             </div>
             <div class="-mx-4 -my-2 overflow-x-auto -mx-6 lg:-mx-8 bg-white">
                 <form wire:submit.prevent="search">
@@ -14,7 +14,8 @@
 
                                 <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="name"
-                                           class="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
+                                           class="block text-sm font-medium leading-6 text-gray-900">Product
+                                        Name</label>
                                     <div class="mt-1">
                                         <input type="text" id="name" autocomplete="off"
                                                wire:model.defer="search.name"
@@ -38,7 +39,7 @@
                         <div class="h-14 bg-gray-50 flex items-center justify-end border-t px-6 mt-2">
                             <button type="submit"
                                     class="mr-2 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                               Search
+                                Search
                             </button>
 
                             <button type="button" wire:click.prevent="clear"
@@ -59,7 +60,7 @@
                 <span>Products List</span>
                 <div>
                     <a href="{{route('master-data.add-products')}}"
-                            class="mr-2 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                       class="mr-2 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Add Product
                     </a>
                 </div>
@@ -81,9 +82,11 @@
                                 </th>
                                 <th scope="col"
                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pieces in Packing
-                                </th> <th scope="col"
+                                </th>
+                                <th scope="col"
                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Supply Price
-                                </th> <th scope="col"
+                                </th>
+                                <th scope="col"
                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Retail Price
                                 </th>
                                 <th scope="col"
@@ -114,17 +117,23 @@
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{$p->size ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{$p->pieces_in_packing ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            {{$p->supply_price ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            {{$p->retail_price ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            {{number_format(($p->supply_price ?? 0) * ($p->pieces_in_packing ?? 0),2)}}
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                            {{number_format(($p->retail_price ?? 0) * ($p->pieces_in_packing ?? 0),2)}}
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{$p->category_name ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{$p->manufacture_name ?? '-'}}
-                                        </td><td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        </td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{$p->rack_name ?? '-'}}
                                         </td>
 
@@ -141,7 +150,8 @@
 
 
                                         <td class="relative whitespace-nowrap py-4 pl-3  text-center text-sm font-medium pr-6">
-                                            <a href="{{route('master-data.edit-products',$p->id)}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            <a href="{{route('master-data.edit-products',$p->id)}}"
+                                               class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

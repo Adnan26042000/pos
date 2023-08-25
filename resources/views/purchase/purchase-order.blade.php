@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title')
-    Products List
+    Create Purchase Order
 @endsection
 @section('content')
-    @livewire('master-data.products.product-list')
+    @livewire('purchase.purchase-order')
 @endsection

@@ -33,10 +33,11 @@ class ProductList extends Component
             })->when(!empty($this->search['status']), function ($q) {
                 return $q->where('products.status', $this->search['status']);
             })
-            ->select('products.id','products.name as name','s.name as size','m.name as manufacture_name','r.name as rack_name','c.name as category_name','products.status','products.pieces_in_packing')
+            ->select('products.id', 'products.name as name', 's.name as size', 'm.name as manufacture_name',
+                'r.name as rack_name', 'c.name as category_name', 'products.status', 'products.pieces_in_packing', 'products.supply_price', 'products.retail_price')
             ->orderBy('products.created_at', 'desc')
             ->paginate();
 
-        return view('livewire.master-data.products.product-list',compact('products'));
+        return view('livewire.master-data.products.product-list', compact('products'));
     }
 }
