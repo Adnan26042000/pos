@@ -21,35 +21,41 @@ class EditProducts extends Component
     public $success = null;
 
     protected $rules = [
+        'product.category_id' => 'required',
         'product.name' => 'required',
         'product.pieces_in_packing' => 'required|numeric',
-        'product.status' => 'required',
+        'product.supply_price' => 'required|numeric',
+        'product.retail_price' => 'required|numeric',
     ];
 
     protected $validationAttributes = [
+        'product.category_id' => 'Category',
         'product.name' => 'Product Name',
         'product.pieces_in_packing' => 'Pieces in Packing',
-        'product.status' => 'Status',
+        'product.supply_price' => 'Supply Price',
+        'product.retail_price' => 'Retail Price',
     ];
 
     public function mount($id)
     {
-        if (!empty($id)) {
-            $this->product_id = $id;
-            $product_exists = Product::find($id);
-            if ($product_exists){
-                $this->manufactures = Manufacturer::where('status', 't')->get()->toArray();
-                $this->sizes = Size::where('status', 't')->get()->toArray();
-                $this->racks = Rack::where('status', 't')->get()->toArray();
-                $this->categories = Category::where('status', 't')->get()->toArray();
-                $this->search();
-            }
+        if (empty($id)) {
+            session()->flash('error', 'Product not found.');
+            return $this->redirectTo = '/master-data/products';
         }
-    }
+        $this->product_id = $id;
+        $this->product = optional(Product::find($id))->toArray();
+        if (empty($this->product)) {
+            session()->flash('error', 'Product not found.');
+            return $this->redirectTo = '/master-data/products';
+        }
 
-    public function search()
-    {
-        $this->product = Product::find($this->product_id)->toArray();
+        $this->product['supply_price'] = round($this->product['supply_price'] * $this->product['pieces_in_packing'],2);
+        $this->product['retail_price'] = round($this->product['retail_price'] * $this->product['pieces_in_packing'],2);
+
+        $this->manufactures = Manufacturer::where('status', 't')->get()->toArray();
+        $this->sizes = Size::where('status', 't')->get()->toArray();
+        $this->racks = Rack::where('status', 't')->get()->toArray();
+        $this->categories = Category::where('status', 't')->get()->toArray();
     }
 
     public function edit()
@@ -61,15 +67,22 @@ class EditProducts extends Component
         })->validate();
 
         try {
-
-            if (Product::where('id','!=',$this->product_id)->where('name',$this->product['name'])->exists()){
-                throw new \Exception('Product Name already exists');
+            if (Product::where('id', '!=', $this->product_id)->where('name', $this->product['name'])->exists()) {
+                throw new \Exception('Product Name already exists.');
             }
-            Product::find($this->product_id)->update($this->product);
-            $this->success = 'Product has been edited successfully';
-            $this->search();
+            $found = Product::find($this->product_id);
+            if (empty($found)) {
+                throw new \Exception('No record found.');
+            }
+            $this->product['supply_price'] = round($this->product['supply_price'] / $this->product['pieces_in_packing'],2);
+            $this->product['retail_price'] = round($this->product['retail_price'] / $this->product['pieces_in_packing'],2);
+            $found->update($this->product);
+            $this->product['supply_price'] = round($this->product['supply_price'] * $this->product['pieces_in_packing'],2);
+            $this->product['retail_price'] = round($this->product['retail_price'] * $this->product['pieces_in_packing'],2);
+            $this->success = 'Product updated successfully.';
         } catch (\Exception $e) {
             $this->addError('error', $e->getMessage());
+            $this->dispatchBrowserEvent('error');
         }
     }
 

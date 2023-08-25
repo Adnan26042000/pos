@@ -10,6 +10,20 @@
                     <div class="inline-block min-w-full py-2 align-middle px-6 lg:px-8">
                         <div class="border-t">
                             <div class="grid grid-cols-4 mx-4">
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
+                                    <label for="contact_no"
+                                           class="block text-sm font-medium leading-6 text-gray-900">Category <span
+                                            class="text-red-700">*</span></label></label>
+                                    <div class="mt-1">
+                                        <select wire:model.defer="product.category_id"
+                                                class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            <option value=""></option>
+                                            @foreach($categories as $c)
+                                                <option value="{{$c['id']}}">{{$c['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
                                     <label for="name"
@@ -49,16 +63,26 @@
                                 </div>
 
                                 <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
-                                    <label for="contact_no"
-                                           class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                                    <label for="supply_price"
+                                           class="block text-sm font-medium leading-6 text-gray-900">Supply Price
+                                        <span
+                                            class="text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <select wire:model.defer="product.category_id"
-                                                class="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            <option value=""></option>
-                                            @foreach($categories as $c)
-                                                <option value="{{$c['id']}}">{{$c['name']}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="supply_price" autocomplete="off"
+                                               wire:model.defer="product.supply_price"
+                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    </div>
+                                </div>
+
+                                <div class="mx-2 my-2 col-span-4 md:col-span-2 lg:col-span-1">
+                                    <label for="retail_price"
+                                           class="block text-sm font-medium leading-6 text-gray-900">Retail Price
+                                        <span
+                                            class="text-red-700">*</span></label>
+                                    <div class="mt-1">
+                                        <input type="text" id="retail_price" autocomplete="off"
+                                               wire:model.defer="product.retail_price"
+                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </div>
                                 </div>
 

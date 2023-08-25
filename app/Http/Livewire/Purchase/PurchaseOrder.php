@@ -9,11 +9,6 @@ class PurchaseOrder extends Component
 {
     use AddProductsTrait;
 
-    public function mount()
-    {
-        $this->getProducts();
-    }
-
     public function render()
     {
         return view('livewire.purchase.purchase-order');

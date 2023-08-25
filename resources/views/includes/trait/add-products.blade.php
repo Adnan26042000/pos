@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="w-full">
                                     <input type="text" autocomplete="off" placeholder="Search..." id="search"
-                                           {{--                                           wire:model.defer="supplier.phone"--}}
+                                           wire:model.debounce.500="search"
                                            class="h-16 w-full border-0 bg-transparent pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm">
                                 </div>
 
@@ -70,7 +70,7 @@
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                 @if(!empty($fetch_products))
-                                    @foreach($fetch_products as $p)
+                                    @foreach($fetch_products as $i=> $p)
                                         <tr class="hover:bg-gray-100 hover:text-gray-900 text-gray-900 product"
                                             wire:key="{{$p['id']}}" id="{{$p['id']}}">
                                             <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium pl-6">
@@ -87,6 +87,7 @@
 
                                             <td class="whitespace-nowrap px-3 py-4 text-sm">
                                                 <input type="text" autocomplete="off" id="qty_{{$p['id']}}"
+{{--                                                       wire:model="fetch_products.{{$i}}.qty"--}}
                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             </td>
                                         </tr>
@@ -118,72 +119,78 @@
 
 <script>
     let search = document.querySelector("#search");
-    let products = document.querySelectorAll(".product");
+    setTimeout(() => {
+        search.focus();
+    }, 600)
+    window.addEventListener('productSearch', () => {
+        let selected_product = -1;
+        let products = null;
+        products = document.querySelectorAll(".product");
+        if (products.length > 0) {
+            search.addEventListener("keydown", (e) => {
+                if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
+                    if (e.key == 'ArrowUp') {
+                        selected_product--;
+                        if (selected_product < 0) {
+                            selected_product = products.length - 1;
+                        }
+                    } else if (e.key == 'ArrowDown') {
+                        selected_product++;
+                        if (selected_product > products.length - 1) {
+                            selected_product = 0;
+                        }
+                    }
 
-    let selected_product = -1;
-    search.addEventListener("keydown", (e) => {
-        if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
-            if (e.key == 'ArrowUp') {
-                selected_product--;
-                if (selected_product < 0) {
-                    selected_product = products.length - 1;
+                    products.forEach((product) => {
+                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                    })
+                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                    products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
                 }
-            } else if (e.key == 'ArrowDown') {
-                selected_product++;
-                if (selected_product > products.length - 1) {
-                    selected_product = 0;
-                }
-            }
-
-            products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
             })
-            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-            products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
+
+            products.forEach((product, index) => {
+                product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
+                    products.forEach((product) => {
+                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                    })
+                    selected_product = index;
+                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                })
+
+                product.addEventListener("keydown", (e) => {
+                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                    if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
+                        if (e.key == 'ArrowUp') {
+                            selected_product--;
+                            if (selected_product < 0) {
+                                selected_product = products.length - 1;
+                            }
+                        } else if (e.key == 'ArrowDown') {
+                            selected_product++;
+                            if (selected_product > products.length - 1) {
+                                selected_product = 0;
+                            }
+                        }
+
+                        products.forEach((product) => {
+                            product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                        })
+                        products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                        products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
+                    }
+                })
+            })
         }
-    })
-
-
-    products.forEach((product, index) => {
-        product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
-            products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
-            })
-            selected_product = index;
-            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-        })
-
-        product.addEventListener("keydown", (e) => {
-            if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
-                if (e.key == 'ArrowUp') {
-                    selected_product--;
-                    if (selected_product < 0) {
-                        selected_product = products.length - 1;
-                    }
-                } else if (e.key == 'ArrowDown') {
-                    selected_product++;
-                    if (selected_product > products.length - 1) {
-                        selected_product = 0;
-                    }
-                }
-
+        window.addEventListener('keyup', e => {
+            if (e.key == 'F2') {
+                search.focus();
+                selected_product = -1;
                 products.forEach((product) => {
                     product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
                 })
-                products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
             }
         })
-    })
-
-    window.addEventListener('keyup', e => {
-        if(e.key == 'F2'){
-            search.focus();
-            selected_product = -1;
-            products.forEach((product) => {
-                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
-            })
-        }
     })
 
 </script>

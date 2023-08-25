@@ -289,7 +289,7 @@
 
                             <a href="{{route('master-data.products')}}"
                                class="text-gray-400 hover:bg-gray-700 hover:text-white group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold pl-11
-                           @if(request()->segment(1) == 'master-data' && request()->segment(2) == 'products') {{$active}} @endif">
+                           @if(request()->segment(1) == 'master-data' && (request()->segment(2) == 'products' || request()->segment(2) == 'add-products'|| request()->segment(2) == 'edit-products')) {{$active}} @endif">
                                 Products
                             </a>
 
