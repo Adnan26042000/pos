@@ -179,6 +179,10 @@
     window.addEventListener('keyup', e => {
         if(e.key == 'F2'){
             search.focus();
+            selected_product = -1;
+            products.forEach((product) => {
+                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+            })
         }
     })
 
