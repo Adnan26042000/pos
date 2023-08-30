@@ -1,4 +1,4 @@
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div x-data="{modal: false}" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
          x-transition:enter="ease-out duration-300"
          x-transition:enter-start="opacity-0"
@@ -86,8 +86,8 @@
                                             </td>
 
                                             <td class="whitespace-nowrap px-3 py-4 text-sm">
-                                                <input type="text" autocomplete="off" id="qty_{{$p['id']}}"
-{{--                                                       wire:model="fetch_products.{{$i}}.qty"--}}
+                                                <input type="text" autocomplete="off" id="qty_{{$p['id']}}" value="1"
+                                                       {{--                                                       wire:model="fetch_products.{{$i}}.qty"--}}
                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             </td>
                                         </tr>
