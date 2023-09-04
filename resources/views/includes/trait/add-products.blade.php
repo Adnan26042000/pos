@@ -146,40 +146,40 @@
                     })
                     products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
                     products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
-                }
-            })
 
-            products.forEach((product, index) => {
-                product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
-                    products.forEach((product) => {
-                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
-                    })
-                    selected_product = index;
-                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                })
-
-                product.addEventListener("keydown", (e) => {
-                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                    if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
-                        if (e.key == 'ArrowUp') {
-                            selected_product--;
-                            if (selected_product < 0) {
-                                selected_product = products.length - 1;
-                            }
-                        } else if (e.key == 'ArrowDown') {
-                            selected_product++;
-                            if (selected_product > products.length - 1) {
-                                selected_product = 0;
-                            }
-                        }
-
-                        products.forEach((product) => {
-                            product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                    products.forEach((product, index) => {
+                        product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
+                            products.forEach((product) => {
+                                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                            })
+                            selected_product = index;
+                            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
                         })
-                        products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                        products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
-                    }
-                })
+
+                        product.addEventListener("keydown", (e) => {
+                            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                            if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
+                                if (e.key == 'ArrowUp') {
+                                    selected_product--;
+                                    if (selected_product < 0) {
+                                        selected_product = products.length - 1;
+                                    }
+                                } else if (e.key == 'ArrowDown') {
+                                    selected_product++;
+                                    if (selected_product > products.length - 1) {
+                                        selected_product = 0;
+                                    }
+                                }
+
+                                products.forEach((product) => {
+                                    product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                                })
+                                products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                                products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
+                            }
+                        })
+                    })
+                }
             })
         }
         window.addEventListener('keyup', e => {
