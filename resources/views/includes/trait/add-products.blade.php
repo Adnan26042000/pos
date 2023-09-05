@@ -68,8 +68,8 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
                                 @if(!empty($fetch_products))
+                                    <tbody class="divide-y divide-gray-200 bg-white" id="products-list">
                                     @foreach($fetch_products as $i=> $p)
                                         <tr class="hover:bg-gray-100 hover:text-gray-900 text-gray-900 product"
                                             wire:key="{{$p['id']}}" id="{{$p['id']}}">
@@ -92,15 +92,17 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    </tbody>
                                 @else
+                                    <tbody class="divide-y divide-gray-200 bg-white">
                                     <tr>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm  text-center text-red-600"
                                             colspan="7">
                                             No Record Yet!
                                         </td>
                                     </tr>
+                                    </tbody>
                                 @endif
-                                </tbody>
                             </table>
                         </div>
 
@@ -179,6 +181,19 @@
                             }
                         })
                     })
+                } else {
+                    let product_group = document.querySelector("#products-list");
+                    if (product_group != null) {
+                        product_group.innerHTML = `
+                        <tr>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm  text-center "
+                                colspan="7">
+                                Searching ...
+                            </td>
+                        </tr>
+
+                        `;
+                    }
                 }
             })
         }
