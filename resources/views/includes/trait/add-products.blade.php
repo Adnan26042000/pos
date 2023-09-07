@@ -1,4 +1,5 @@
-<div x-data="{modal: false}" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div x-data="{modal: @entangle('product_trait') }" class="relative z-10" aria-labelledby="modal-title" role="dialog"
+     aria-modal="true" x-show="modal">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
          x-transition:enter="ease-out duration-300"
          x-transition:enter-start="opacity-0"
@@ -19,7 +20,7 @@
                 class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8"
                 style="width: 700px !important;">
                 <div class="absolute right-0 top-0 pt-5 pr-4">
-                    <button type="button"
+                    <button type="button" @click="{modal:false}" wire:click.prevent="closeAddProductModal"
                             class="rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         <span class="sr-only">Close</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -72,6 +73,7 @@
                                     <tbody class="divide-y divide-gray-200 bg-white" id="products-list">
                                     @foreach($fetch_products as $i=> $p)
                                         <tr class="hover:bg-gray-100 hover:text-gray-900 text-gray-900 product"
+                                            data-product-id="{{$p['id']}}" wire:ignore
                                             wire:key="{{$p['id']}}" id="{{$p['id']}}">
                                             <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium pl-6">
                                                 {{$p['name']}}
@@ -87,7 +89,6 @@
 
                                             <td class="whitespace-nowrap px-3 py-4 text-sm">
                                                 <input type="text" autocomplete="off" id="qty_{{$p['id']}}" value="1"
-                                                       {{--                                                       wire:model="fetch_products.{{$i}}.qty"--}}
                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                             </td>
                                         </tr>
@@ -117,74 +118,81 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    let search = document.querySelector("#search");
-    setTimeout(() => {
-        search.focus();
-    }, 600)
-    window.addEventListener('productSearch', () => {
-        let selected_product = -1;
-        let products = null;
-        products = document.querySelectorAll(".product");
-        if (products.length > 0) {
-            search.addEventListener("keydown", (e) => {
-                if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
-                    if (e.key == 'ArrowUp') {
-                        selected_product--;
-                        if (selected_product < 0) {
-                            selected_product = products.length - 1;
+    <script>
+        let search = document.querySelector("#search");
+        window.addEventListener('autoSelectSearchBox', () => {
+            setTimeout(() => {
+                search.focus();
+            }, 100);
+        });
+        window.addEventListener('productSearch', () => {
+            let selected_product = -1;
+            let products = null;
+            products = document.querySelectorAll(".product");
+            if (products.length > 0) {
+                search.addEventListener("keydown", (e) => {
+                    if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
+                        if (e.key == 'ArrowUp') {
+                            selected_product--;
+                            if (selected_product < 0) {
+                                selected_product = products.length - 1;
+                            }
+                        } else if (e.key == 'ArrowDown') {
+                            selected_product++;
+                            if (selected_product > products.length - 1) {
+                                selected_product = 0;
+                            }
                         }
-                    } else if (e.key == 'ArrowDown') {
-                        selected_product++;
-                        if (selected_product > products.length - 1) {
-                            selected_product = 0;
-                        }
-                    }
 
-                    products.forEach((product) => {
-                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
-                    })
-                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                    products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
-
-                    products.forEach((product, index) => {
-                        product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
-                            products.forEach((product) => {
-                                product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
-                            })
-                            selected_product = index;
-                            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                        products.forEach((product) => {
+                            product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
                         })
+                        products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                        products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
 
-                        product.addEventListener("keydown", (e) => {
-                            products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                            if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
-                                if (e.key == 'ArrowUp') {
-                                    selected_product--;
-                                    if (selected_product < 0) {
-                                        selected_product = products.length - 1;
-                                    }
-                                } else if (e.key == 'ArrowDown') {
-                                    selected_product++;
-                                    if (selected_product > products.length - 1) {
-                                        selected_product = 0;
-                                    }
-                                }
-
+                        products.forEach((product, index) => {
+                            product.querySelector(`#qty_${product.id}`).addEventListener('focus', () => {
                                 products.forEach((product) => {
                                     product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
                                 })
+                                selected_product = index;
                                 products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
-                                products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
-                            }
+                            })
+
+                            product.addEventListener("keydown", (e) => {
+                                products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                                if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
+                                    if (e.key == 'ArrowUp') {
+                                        selected_product--;
+                                        if (selected_product < 0) {
+                                            selected_product = products.length - 1;
+                                        }
+                                    } else if (e.key == 'ArrowDown') {
+                                        selected_product++;
+                                        if (selected_product > products.length - 1) {
+                                            selected_product = 0;
+                                        }
+                                    }
+
+                                    products.forEach((product) => {
+                                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                                    })
+                                    products[selected_product].classList.add('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white');
+                                    products[selected_product].querySelector(`#qty_${products[selected_product].id}`).focus();
+                                }
+
+                                if (e.key == 'Enter') {
+                                    @this.set('temp_selected_product.product_id',product.dataset.productId);
+                                    @this.set('temp_selected_product.qty',document.querySelector(`#qty_${products[selected_product].id}`).value);
+                                }
+
+                            })
                         })
-                    })
-                } else {
-                    let product_group = document.querySelector("#products-list");
-                    if (product_group != null) {
-                        product_group.innerHTML = `
+                    } else {
+                        let product_group = document.querySelector("#products-list");
+                        if (product_group != null) {
+                            product_group.innerHTML = `
                         <tr>
                             <td class="whitespace-nowrap px-3 py-4 text-sm  text-center "
                                 colspan="7">
@@ -193,19 +201,19 @@
                         </tr>
 
                         `;
+                        }
                     }
-                }
-            })
-        }
-        window.addEventListener('keyup', e => {
-            if (e.key == 'F2') {
-                search.focus();
-                selected_product = -1;
-                products.forEach((product) => {
-                    product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
                 })
             }
+            window.addEventListener('keyup', e => {
+                if (e.key == 'F2') {
+                    search.focus();
+                    selected_product = -1;
+                    products.forEach((product) => {
+                        product.classList.remove('bg-indigo-600', 'text-white', 'hover:bg-indigo-600', 'hover:text-white')
+                    })
+                }
+            })
         })
-    })
-</script>
+    </script>
 </div>

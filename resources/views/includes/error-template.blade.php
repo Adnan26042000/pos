@@ -85,7 +85,7 @@
                                 @endif
                             </div>
                             <div class="ml-4 flex flex-shrink-0">
-                                <button type="button"
+                                <button type="button" wire:click="$set('success', '')"
                                         @click="successPopup=false"
                                         class="inline-flex rounded-md  text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-0.5">
                                     <span class="sr-only">Close</span>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="ml-auto pl-3">
                             <div class="-mx-1.5 -my-1.5">
-                                <button type="button"
+                                <button type="button" wire:click="$set('success', '')"
                                         class="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">
                                     <span class="sr-only">Dismiss</span>
                                     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
